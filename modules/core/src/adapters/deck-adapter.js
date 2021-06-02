@@ -22,6 +22,9 @@ import {PreviewEncoder} from '../encoders';
 // eslint-disable-next-line no-unused-vars
 import {DeckScene} from '../scene';
 import {VideoCapture} from '../capture/video-capture';
+import log from '../log';
+
+const DECK_PROPS = ['onLoad', '_animate', 'controller', 'viewState', 'width', 'height'];
 
 export default class DeckAdapter {
   /** @type {DeckScene} */
@@ -67,6 +70,11 @@ export default class DeckAdapter {
     getLayers = undefined,
     extraProps = undefined
   }) {
+    log.warn('hi');
+    if (extraProps && Object.keys(extraProps).includes(DECK_PROPS)) {
+      log.warn(`DeckAdapter: extra deck props collide with managed props, and will be overwritten.\n
+      Managed Props: ${DECK_PROPS}`);
+    }
     const props = {
       onLoad: () =>
         this._deckOnLoad(deckRef.current.deck).then(() => {

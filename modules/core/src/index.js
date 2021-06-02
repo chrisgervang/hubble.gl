@@ -42,3 +42,5 @@ export {
 } from './keyframes';
 
 export {DeckScene, KeplerScene} from './scene';
+
+export {default as log} from './log';
